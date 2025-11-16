@@ -110,6 +110,8 @@
   cursor: default;
 }
 
+/* Los colores ahora se aplican via inline styles desde el tema seleccionado */
+/* Estos estilos solo se usan como fallback si no hay tema */
 .contribution-day.level-0 {
   background-color: #161b22;
   border: 1px solid #1b1f23;

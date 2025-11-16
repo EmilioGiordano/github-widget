@@ -1,5 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react'
 import './GitHubContributions.css'
+import { themes, defaultTheme, Theme } from './themes'
 
 interface ContributionDay {
   date: Date
@@ -13,6 +14,7 @@ interface GitHubContributionsProps {
   monthsFont?: string
   contributionsFont?: string
   legendFont?: string
+  theme?: string
 }
 
 interface GitHubAPIContribution {
@@ -27,7 +29,10 @@ const GitHubContributions: React.FC<GitHubContributionsProps> = ({
   monthsFont = "'JetBrains Mono', monospace",
   contributionsFont = "'JetBrains Mono', monospace",
   legendFont = "'JetBrains Mono', monospace",
+  theme = defaultTheme,
 }) => {
+  // Obtener el tema seleccionado
+  const selectedTheme: Theme = themes[theme] || themes[defaultTheme]
   const [hoveredDay, setHoveredDay] = useState<ContributionDay | null>(null)
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 })
   const [realContributions, setRealContributions] = useState<GitHubAPIContribution[] | null>(null)
@@ -281,6 +286,10 @@ const GitHubContributions: React.FC<GitHubContributionsProps> = ({
                     <div
                       key={dayIndex}
                       className={`contribution-day level-${day.level}`}
+                      style={{
+                        backgroundColor: selectedTheme.levels[day.level as keyof typeof selectedTheme.levels],
+                        borderColor: selectedTheme.levels[day.level as keyof typeof selectedTheme.levels],
+                      }}
                       onMouseEnter={(e) => handleMouseEnter(day, e)}
                       onMouseLeave={handleMouseLeave}
                       data-date={day.date.toISOString()}
@@ -298,11 +307,41 @@ const GitHubContributions: React.FC<GitHubContributionsProps> = ({
       <div className="contributions-legend" style={{ fontFamily: legendFont }}>
         <span>Menos</span>
         <div className="legend-colors">
-          <div className="legend-box level-0" />
-          <div className="legend-box level-1" />
-          <div className="legend-box level-2" />
-          <div className="legend-box level-3" />
-          <div className="legend-box level-4" />
+          <div 
+            className="legend-box level-0" 
+            style={{ 
+              backgroundColor: selectedTheme.levels[0],
+              borderColor: selectedTheme.levels[0],
+            }} 
+          />
+          <div 
+            className="legend-box level-1" 
+            style={{ 
+              backgroundColor: selectedTheme.levels[1],
+              borderColor: selectedTheme.levels[1],
+            }} 
+          />
+          <div 
+            className="legend-box level-2" 
+            style={{ 
+              backgroundColor: selectedTheme.levels[2],
+              borderColor: selectedTheme.levels[2],
+            }} 
+          />
+          <div 
+            className="legend-box level-3" 
+            style={{ 
+              backgroundColor: selectedTheme.levels[3],
+              borderColor: selectedTheme.levels[3],
+            }} 
+          />
+          <div 
+            className="legend-box level-4" 
+            style={{ 
+              backgroundColor: selectedTheme.levels[4],
+              borderColor: selectedTheme.levels[4],
+            }} 
+          />
         </div>
         <span>Más</span>
       </div>
