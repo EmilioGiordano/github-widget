@@ -115,9 +115,5 @@ function App() {
 - React 18
 - TypeScript
 - Vite
-- CSS moderno
-
-## 📄 Licencia
-
-MIT
+- CSS
 
